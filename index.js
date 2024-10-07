@@ -10,10 +10,10 @@ const cors = require('cors'); //Permitir peticiones
 //Conectar a la base de datos
 const conexion = conn.createPool({
     host:process.env.DB_HOST,
-    host:process.env.DB_USER,
-    host:process.env.DB_PASSWORD,
-    host:process.env.DB_NAME,
-    host:process.env.DB_PORT,
+    user:process.env.DB_USER,
+    password:process.env.DB_PASSWORD,
+    database:process.env.DB_NAME,
+    port:process.env.DB_PORT,
 });
 
 //Configurar servidor API
@@ -23,6 +23,10 @@ app.use(express.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
 //Crear endpoints 
+app.get('/users', (req, res)=>{
+    res.send({message:'Aquí se muestran los usuarios'});
+});
+
 app.get('*', (req, res)=>{
     res.send({message:'Ruta no válida'});
 });
