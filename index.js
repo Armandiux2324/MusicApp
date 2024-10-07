@@ -7,6 +7,8 @@ const conn = require('mysql2'); //Para usar BD
 const bodyParser = require('body-parser'); //Ordenar información
 const cors = require('cors'); //Permitir peticiones
 
+var artistaController = require('./controllers/artista');
+
 //Conectar a la base de datos
 const conexion = conn.createPool({
     host:process.env.DB_HOST,
@@ -23,9 +25,8 @@ app.use(express.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
 //Crear endpoints 
-app.get('/users', (req, res)=>{
-    res.send({message:'Aquí se muestran los usuarios'});
-});
+app.post('/artista', artistaController.save);
+app.get('/artista', artistaController.getAll);
 
 app.get('*', (req, res)=>{
     res.send({message:'Ruta no válida'});

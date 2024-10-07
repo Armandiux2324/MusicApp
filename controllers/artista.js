@@ -17,8 +17,10 @@ module.exports={
         conexion.query(sql, function(err, results, fields){
             if(err){
                 console.log(err);
+                res.status(500).send('Intenta más tarde')
             } else{
                 console.log(results);
+                res.status(201).send({message: 'Artista creado'})
             }
         });
     },
@@ -32,6 +34,14 @@ module.exports={
     },
 
     getAll(req, res){
-        
+        var sql = 'SELECT * FROM artista';
+        conexion.query(sql, function(err, results, fields){
+            if(err){
+                console.log(err);
+                res.status(500).send('Intenta más tarde');
+            } else{
+                console.log(results);
+                res.status(201).send({data:results});
+            }});
     }
 } 
