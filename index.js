@@ -27,6 +27,8 @@ app.use(bodyParser.json());
 //Crear endpoints 
 app.post('/artista', artistaController.save);
 app.get('/artista', artistaController.getAll);
+app.delete('/artista', artistaController.delete);
+app.put('/artista', artistaController.update);
 
 app.get('*', (req, res)=>{
     res.send({message:'Ruta no válida'});

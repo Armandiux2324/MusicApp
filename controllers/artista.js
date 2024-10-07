@@ -26,11 +26,34 @@ module.exports={
     },
 
     update(req, res){
-        
+        data = req.body;
+        name = data.name;
+        imagen = data.imagen;
+        id = data.id;
+        var sql = 'UPDATE artista SET name = "' + name + '", imagen = "' + imagen + '" WHERE idartista = ' + id + '';
+        conexion.query(sql, function(err, results, fields){
+            if(err){
+                console.log(err);
+                res.status(500).send('Intenta más tarde')
+            } else{
+                console.log(results);
+                res.status(200).send({message: 'Artista modificado'})
+            }
+        });
     },
 
     delete(req, res){
-        
+        data = req.body;
+        id = data.id;
+        var sql = 'DELETE FROM artista WHERE idartista = ' + id + '';
+        conexion.query(sql, function(err, results, fields){
+            if(err){
+                console.log(err);
+                res.status(500).send('Intenta más tarde')
+            } else{
+                console.log(results);
+                res.status(200).send({message: 'Artista eliminado'})
+            }});
     },
 
     getAll(req, res){
