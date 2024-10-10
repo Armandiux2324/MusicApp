@@ -49,19 +49,19 @@ module.exports={
     delete(req, res){
         data = req.body;
         id = data.id;
-        var sql = 'DELETE FROM albums WHERE idalbums = ' + id + '';
+        var sql = 'DELETE FROM canciones WHERE idcanciones = ' + id + '';
         conexion.query(sql, function(err, results, fields){
             if(err){
                 console.log(err);
                 res.status(500).send('Intenta más tarde')
             } else{
                 console.log(results);
-                res.status(200).send({message: 'Álbum eliminado'})
+                res.status(200).send({message: 'Canción eliminada'})
             }});
     },
 
     getAll(req, res){
-        var sql = 'SELECT * FROM albums';
+        var sql = 'SELECT * FROM canciones';
         conexion.query(sql, function(err, results, fields){
             if(err){
                 console.log(err);
