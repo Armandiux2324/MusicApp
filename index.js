@@ -8,6 +8,7 @@ const bodyParser = require('body-parser'); //Ordenar información
 const cors = require('cors'); //Permitir peticiones
 
 var artistaController = require('./controllers/artista');
+var albumsController = require('./controllers/albums');
 
 //Conectar a la base de datos
 const conexion = conn.createPool({
@@ -25,10 +26,15 @@ app.use(express.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
 //Crear endpoints 
+//endpoints artista
 app.post('/artista', artistaController.save);
 app.get('/artista', artistaController.getAll);
 app.delete('/artista', artistaController.delete);
 app.put('/artista', artistaController.update);
+
+//endpoints albums
+app.post('/albums', albumsController.save);
+app.put('/albums', albumsController.update);
 
 app.get('*', (req, res)=>{
     res.send({message:'Ruta no válida'});
