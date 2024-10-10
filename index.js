@@ -35,6 +35,8 @@ app.put('/artista', artistaController.update);
 //endpoints albums
 app.post('/albums', albumsController.save);
 app.put('/albums', albumsController.update);
+app.delete('/albums', albumsController.delete);
+app.get('/albums', albumsController.getAll);
 
 app.get('*', (req, res)=>{
     res.send({message:'Ruta no válida'});
