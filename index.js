@@ -10,6 +10,7 @@ const cors = require('cors'); //Permitir peticiones
 var artistaController = require('./controllers/artista');
 var albumsController = require('./controllers/albums');
 var cancionesController = require('./controllers/canciones');
+var usersController = require('./controllers/users');
 
 //Conectar a la base de datos
 const conexion = conn.createPool({
@@ -44,6 +45,12 @@ app.post('/canciones', cancionesController.save);
 app.put('/canciones', cancionesController.update);
 app.delete('/canciones', cancionesController.delete);
 app.get('/canciones', cancionesController.getAll);
+
+//endpoints users
+app.post('/users', usersController.save);
+app.put('/users', usersController.update);
+app.delete('/users', usersController.delete);
+app.get('/users', usersController.getAll);
 
 app.get('*', (req, res)=>{
     res.send({message:'Ruta no válida'});
