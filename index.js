@@ -6,6 +6,7 @@ const PORT = process.env.PORT; //Puerto de la app
 const conn = require('mysql2'); //Para usar BD
 const bodyParser = require('body-parser'); //Ordenar información
 const cors = require('cors'); //Permitir peticiones
+var md_auth = require('./middlewares/auth')
 
 var artistaController = require('./controllers/artista');
 var albumsController = require('./controllers/albums');
@@ -29,10 +30,10 @@ app.use(bodyParser.json());
 
 //Crear endpoints 
 //endpoints artista
-app.post('/artista', artistaController.save);
-app.get('/artista', artistaController.getAll);
-app.delete('/artista', artistaController.delete);
-app.put('/artista', artistaController.update);
+app.post('/artista', [md_auth.Auth], artistaController.save);
+app.get('/artista', [md_auth.Auth], artistaController.getAll);
+app.delete('/artista', [md_auth.Auth], artistaController.delete);
+app.put('/artista', [md_auth.Auth], artistaController.update);
 
 //endpoints albums
 app.post('/albums', albumsController.save);
@@ -47,7 +48,7 @@ app.delete('/canciones', cancionesController.delete);
 app.get('/canciones', cancionesController.getAll);
 
 //endpoints users
-app.post('/users', usersController.save);
+app.post('/users', [md_auth.Auth], usersController.save);
 app.put('/users', usersController.update);
 app.delete('/users', usersController.delete);
 app.get('/users', usersController.getAll);

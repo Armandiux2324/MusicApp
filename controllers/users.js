@@ -1,5 +1,6 @@
 const conn = require('mysql2'); //Para usar BD
 var bcrypt = require('bcrypt-nodejs');
+var jwt = require('../services/jwt');
 
 const conexion = conn.createPool({
     host:process.env.DB_HOST,
@@ -20,8 +21,9 @@ module.exports={
                 if(results.length == 1){
                     bcrypt.compare(password, results[0].password, function(error, check){
                         if(check){
+                            var token = jwt.createToken(results[0]);
                             console.log("Datos correctos");
-                            res.status(200).send({message: "Login exitoso"});
+                            res.status(200).send({message: "Login exitoso", token:token});
                         } else{
                             res.status(200).send({message: "Verifica tu información"});
                         }
