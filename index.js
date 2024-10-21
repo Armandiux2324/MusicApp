@@ -51,6 +51,7 @@ app.post('/users', usersController.save);
 app.put('/users', usersController.update);
 app.delete('/users', usersController.delete);
 app.get('/users', usersController.getAll);
+app.post('/login', usersController.login);
 
 app.get('*', (req, res)=>{
     res.send({message:'Ruta no válida'});
