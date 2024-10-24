@@ -50,8 +50,8 @@ app.get('/canciones', cancionesController.getAll);
 //endpoints users
 app.post('/users', [md_auth.Auth], usersController.save);
 app.put('/users', usersController.update);
-app.delete('/users', usersController.delete);
-app.get('/users', usersController.getAll);
+app.delete('/users', [md_auth.Auth], usersController.delete);
+app.get('/users', [md_auth.Auth], usersController.getAll);
 app.post('/login', usersController.login);
 
 app.get('*', (req, res)=>{

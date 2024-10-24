@@ -4,7 +4,7 @@ var secret = 'utzac_ti';
 
 exports.createToken = function(user){
     var payload = {
-        sub:user.id,
+        sub:user.idusers,
         role:user.role,
         name:user.name,
         iat:moment().unix(),

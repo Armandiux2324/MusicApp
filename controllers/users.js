@@ -90,19 +90,28 @@ module.exports={
     delete(req, res){
         data = req.body;
         id = data.id;
-        var sql = 'DELETE FROM users WHERE idusers = ' + id + '';
-        conexion.query(sql, function(err, results, fields){
-            if(err){
-                console.log(err);
-                res.status(500).send('Intenta más tarde')
-            } else{
-                console.log(results);
-                res.status(200).send({message: 'Usuario eliminado'})
-            }});
+        if(req.user.role == 'admin'){
+            var sql = 'DELETE FROM users WHERE idusers = ' + id + '';
+            conexion.query(sql, function(err, results, fields){
+                if(err){
+                    console.log(err);
+                    res.status(500).send('Intenta más tarde')
+                } else{
+                    console.log(results);
+                    res.status(200).send({message: 'Usuario eliminado'})
+                }});
+        } else{
+            res.status(403).send({message: 'No tienes permisos para realizar esta operación.'})
+        }
     },
 
     getAll(req, res){
-        var sql = 'SELECT * FROM users';
+        user = req.user;
+        if(user.role == 'admin'){
+            var sql = 'SELECT * FROM users';
+        } else{
+            var sql = 'SELECT * FROM users WHERE idusers = ' + user.sub;
+        }
         conexion.query(sql, function(err, results, fields){
             if(err){
                 console.log(err);
